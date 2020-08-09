@@ -2,15 +2,13 @@ package com.example.yfysoftware.simpleviewpager;
 
 
 import android.content.Context;
-import android.support.v4.view.PagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.example.yfysoftware.simpleviewpager.R;
 
 import java.util.List;
 

@@ -1,23 +1,31 @@
 package com.example.yfysoftware.simpleviewpager;
 
 import android.os.Build;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
 import android.os.Bundle;
 import android.transition.Fade;
 import android.transition.TransitionInflater;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.commit451.elasticdragdismisslayout.ElasticDragDismissFrameLayout;
 import com.commit451.elasticdragdismisslayout.ElasticDragDismissListener;
-import com.example.yfysoftware.simpleviewpager.R;
+
+import xyz.klinker.android.drag_dismiss.activity.DragDismissActivity;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends DragDismissActivity {
+
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateContent(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+      //  super.onCreate(savedInstanceState);
+       // setContentView(R.layout.activity_main);
+
+        View v = inflater.inflate(R.layout.activity_main, parent, false);
 
         Fade fade = new Fade();
         View decor = getWindow().getDecorView();
@@ -28,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setEnterTransition(fade);
         getWindow().setExitTransition(fade);
 
-        ViewPager viewPager= (ViewPager) findViewById(R.id.viewPager);
-        ElasticDragDismissFrameLayout mDraggableFrame = (ElasticDragDismissFrameLayout) findViewById(R.id.elasticDragDismissFrameLayout);
+        ViewPager viewPager= (ViewPager) v.findViewById(R.id.viewPager);
+        ElasticDragDismissFrameLayout mDraggableFrame = (ElasticDragDismissFrameLayout) v.findViewById(R.id.elasticDragDismissFrameLayout);
 
         CustomPagerAdapter adapter=new CustomPagerAdapter(this, DataModel.getDataList());
 
@@ -46,15 +54,11 @@ public class MainActivity extends AppCompatActivity {
                             TransitionInflater.from(MainActivity.this)
                                     .inflateTransition(R.transition.about_return_downward));
                 }
-                if (Build.VERSION.SDK_INT >= 21) {
-                    finishAfterTransition();
-                } else {
-                    finish();
-                }
+
+                finishAfterTransition();
+
             }
         });
-
+        return v;
     }
-
-
 }
