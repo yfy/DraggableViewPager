@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.commit451.elasticdragdismisslayout.ElasticDragDismissFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/elasticDragDismissFrameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:dragDismissDistance="200dp"
+    android:background="#000000"
     android:transitionName="transition"
-    app:dragDismissScale="0.95">
+    >
 
 
 
@@ -27,4 +27,4 @@
     </android.support.v4.widget.NestedScrollView>
 
 
-</com.commit451.elasticdragdismisslayout.ElasticDragDismissFrameLayout>
+</FrameLayout>

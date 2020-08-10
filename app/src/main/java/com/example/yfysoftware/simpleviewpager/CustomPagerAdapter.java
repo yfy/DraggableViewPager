@@ -3,14 +3,14 @@ package com.example.yfysoftware.simpleviewpager;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.example.yfysoftware.simpleviewpager.R;
 
 import java.util.List;
 
@@ -21,7 +21,11 @@ class CustomPagerAdapter extends PagerAdapter {
     private Context context;
 
     private LayoutInflater inflater;
-
+    private float xCoOrdinate, yCoOrdinate;
+    private double screenCenterX, screenCenterY;
+    private int alpha;
+    ImageView imageView;
+    View view;
     public CustomPagerAdapter(Context context, List<DataModel> itemList){
 
         this.context=context;
@@ -44,21 +48,38 @@ class CustomPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
 
 
-        View view=inflater.inflate(R.layout.tek_satir, container, false);
+         view=inflater.inflate(R.layout.tek_satir, container, false);
 
-        ImageView imgView= (ImageView) view.findViewById(R.id.image_item);
+        ImageView imageView= (ImageView) view.findViewById(R.id.image_item);
         TextView tv= (TextView) view.findViewById(R.id.textView);
 
         DataModel gecici=itemList.get(position);
 
-        imgView.setImageResource(gecici.getImageID());
+       // view.getBackground().setAlpha(255);
+
+        imageView.setImageResource(gecici.getImageID());
         tv.setText(gecici.getBaslik());
 
         //tek_Satir.xml'i container'a yani viewpager'a ekliyoruz.
         container.addView(view);
 
+        final DisplayMetrics display = context.getResources().getDisplayMetrics();
+        screenCenterX = display.widthPixels / 2;
+        screenCenterY = (display.heightPixels - getStatusBarHeight()) / 2;
+        final double maxHypo = Math.hypot(screenCenterX, screenCenterY);
+
+
         return view;
 
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     @Override
